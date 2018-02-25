@@ -1,5 +1,9 @@
 Update 1:
 Idea of this game:
+I have been learning about the Graphics libraries through
+online books and video tutorials.
+
+
 The player model is a flying saucer that shoots a beam
 to teleport people onto the ship.
 As of now, I have implemented movement for both the
@@ -22,3 +26,8 @@ that will target the slowest-walking person that is
 not already targeted.
 I plan on implementing this using a priority queue
 and smart pointers.
+
+Aside:
+I have also been reading up on the threading chapter of
+the provided Qt programming pdf.
+If time permits, I will apply concepts from that chapter.
