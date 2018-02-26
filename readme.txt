@@ -31,3 +31,24 @@ Aside:
 I have also been reading up on the threading chapter of
 the provided Qt programming pdf.
 If time permits, I will apply concepts from that chapter.
+
+Update 3:
+I have figured out out how to add graphics and music to my project
+I am currently trying to figure out how to add some basic animations to the human objects (and adding several different human images)
+
+Along the way, I have learned about the following Qt libraries:
+QGraphicsItem
+QGraphicsPixmapItem
+QMediaPlayer
+QGraphicsScene
+QGraphicsView
+QList
+
+
+I had some trouble trying to distinguish the human pointers from the other pointers (such as the flying saucer, the beams, and the seekers)
+I created a spawner class that is in charge of spawning humans.
+Instead of trying to access all game objects, I just used the children of the spawner using the childItems QList.
+
+I am trying to store all humans moving across the screen as a priority queue of shared pointers.
+The order for the priority_queue will be based on the human's walking speed.
+The objects that track the player movement are the seekers.
