@@ -1,42 +1,29 @@
 Update 1:
 Idea of this game:
-I have been learning about the Graphics libraries through
-online books and video tutorials.
-
-
 The player model is a flying saucer that shoots a beam
 to teleport people onto the ship.
-As of now, I have implemented movement for both the
-FlyingSaucer and Beam classes.
-Also as of now, the Flying Saucer and the beam are
-just rectangles.
 
-After this, I plan on adding music.
-Then I plan on making the people respond to the location
-of the flying saucer.
+Features:
+- Move an animated flying saucer
+- Fire two types of projectiles from the flying saucer:
+    - A beam that travels straight down
+    - A seeker that targets the slowest human object
+- Animated human characters with variable speeds
+- A background image for the players to run along
+- Sound effects (music and projectile noises)
 
-I will wait to sync my other files to this repo until
-I know this idea is ok.
-
-Update 2:
-I have the human class made.
-Each human has a variable walking/running speed.
-I plan on having the player fire additional objects
-that will target the slowest-walking person that is
-not already targeted.
-I plan on implementing this using a priority queue
-and smart pointers.
-
-Aside:
-I have also been reading up on the threading chapter of
-the provided Qt programming pdf.
-If time permits, I will apply concepts from that chapter.
-
-Update 3:
-I have figured out out how to add graphics and music to my project
-I am currently trying to figure out how to add some basic animations to the human objects (and adding several different human images)
+Through this project, I have learned/implemented the following:
+-How to make a Qt widget class
+-How to manage scenes and views inside a Qt program
+-How to connect QTimers to public slots in my widget classes
+-How to implement images and audio files into my Qt programs
+-How to make a Qt program respond to keystrokes
+-How to update an image on a timer to create animation.
 
 Along the way, I have learned about the following Qt libraries:
+QTimer
+QGraphicsRect
+QGraphicsRectItem
 QGraphicsItem
 QGraphicsPixmapItem
 QMediaPlayer
@@ -44,11 +31,26 @@ QGraphicsScene
 QGraphicsView
 QList
 
+Difficulties:
+1.  I had trouble maintaining a sorted data structure that
+keeps track of all human objects.
+My goal was for the flying saucer to have information on
+all human objects.
+I originally had a spawner class that handled all memory
+allocation for Human objects.
+Rather than passing this information from the Spawner class
+to the flying saucer, I set the flying saucer to manage the
+memory allocation for all human objects.
+And now I maintain a sorted vector of Human objects within
+the FlyingSaucer class.
+The order is by walking speed.
 
-I had some trouble trying to distinguish the human pointers from the other pointers (such as the flying saucer, the beams, and the seekers)
-I created a spawner class that is in charge of spawning humans.
-Instead of trying to access all game objects, I just used the children of the spawner using the childItems QList.
-
-I am trying to store all humans moving across the screen as a priority queue of shared pointers.
-The order for the priority_queue will be based on the human's walking speed.
-The objects that track the player movement are the seekers.
+Plans:
+1. Allow players to enter and leave from doors on the background image.
+Keep track of how many Humans are currently inside the building
+using smart pointers.
+2. I plan on learning how to add live messages to a views
+to output some information about the current state of the game.
+3. I plan on learning to switch the view between scene objects
+to create a loading/pause screen.
+4. Learning about the QMovie library
