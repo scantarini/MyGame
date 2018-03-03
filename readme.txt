@@ -1,3 +1,5 @@
+NOTE: There is music. Be careful for the volume.
+
 Update 1:
 Idea of this game:
 The player model is a flying saucer that shoots a beam
