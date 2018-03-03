@@ -1,5 +1,4 @@
 #include <QApplication>
-#include <QTimer>
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include "flyingsaucer.h"

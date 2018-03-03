@@ -1,6 +1,5 @@
 #include "spawner.h"
 #include "human.h"
-#include <QDebug>
 
 Spawner::Spawner()
 {
