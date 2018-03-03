@@ -2,6 +2,7 @@
 #include "flyingsaucer.h"
 #include "spawner.h"
 #include "human.h"
+#include "seeker.h"
 
 
 
