@@ -1,41 +1,44 @@
-#include "beam.h"
 #include "flyingsaucer.h"
+#include "beam.h"
 #include "seeker.h"
-#include "spawner.h"
 #include "human.h"
-
-
 
 
 FlyingSaucer::FlyingSaucer()
 {
-    setPixmap(QPixmap(":/Models/saucer.png"));
+    time = new QTimer;
+    time->start(30);
+    initializeAnimation();
+    seekerCounter = 0;
+    setPixmap(QPixmap(":/UFO/Animation/Frames/00.gif"));
     fire = new QMediaPlayer;
     fire->setMedia(QUrl("qrc:/Music/Galaga.mp3"));
+
+    QTimer* timer = new QTimer();
+    QObject::connect(timer, SIGNAL(timeout()), this, SLOT(MakeHuman()));
+    timer->start(500);
+
+    QTimer* timer2 = new QTimer();
+    QObject::connect(timer2, SIGNAL(timeout()), this, SLOT(Animate()));
+    timer2->start(50);
+}
+
+Human *FlyingSaucer::targetSlowestHuman()
+{
+    if(population.empty()) return nullptr;
+    return population[0];
 }
 
 void FlyingSaucer::keyPressEvent(QKeyEvent *input)
 {
     if(input->key() == Qt::Key_W)
-        setPos(x(), y()-15);
+        QObject::connect(time, SIGNAL(timeout()), this, SLOT(MoveUp()));
     else if(input->key() == Qt::Key_S)
-        setPos(x(), y()+15);
+        QObject::connect(time, SIGNAL(timeout()), this, SLOT(MoveDown()));
     else if(input->key() == Qt::Key_A)
-        setPos(x()-15, y());
+        QObject::connect(time, SIGNAL(timeout()), this, SLOT(MoveLeft()));
     else if(input->key() == Qt::Key_D)
-        setPos(x()+15, y());
-    else if(input->key() == Qt::Key_Q)
-        setPos(x()-10, y()-10);
-    else if(input->key() == Qt::Key_E)
-        setPos(x()+10, y()-10);
-    else if(input->key() == Qt::Key_Z)
-        setPos(x()-10, y()+10);
-    else if(input->key() == Qt::Key_C)
-        setPos(x()+10, y()+10);
-    else if(input->key() == Qt::Key_Left)
-        setPos(x()-550, y());
-    else if(input->key() == Qt::Key_Right)
-        setPos(x()+550, y());
+        QObject::connect(time, SIGNAL(timeout()), this, SLOT(MoveRight()));
 
     else if(input->key() == Qt::Key_Space)
     {
@@ -46,8 +49,16 @@ void FlyingSaucer::keyPressEvent(QKeyEvent *input)
 
         Beam* greenBeam = new Beam;
         greenBeam->SetShip(this);
-        greenBeam->setPos(x()+95,y()+50);
+
+        if(seekerCounter%3==0)
+            greenBeam->setPos(x()+80,y()+55);
+        else if(seekerCounter%3==1)
+            greenBeam->setPos(x()+140,y()+55);
+        else if(seekerCounter%3==2)
+            greenBeam->setPos(x()+18,y()+55);
         scene()->addItem(greenBeam);
+        seekerCounter++;
+
     }
     else if(input->key() == Qt::Key_X)
     {
@@ -57,17 +68,15 @@ void FlyingSaucer::keyPressEvent(QKeyEvent *input)
             fire->play();
 
         Seeker* seeker = new Seeker;
-        Seeker* seeker2 = new Seeker;
-        Seeker* seeker3 = new Seeker;
         seeker->SetShip(this);
-        seeker2->SetShip(this);
-        seeker3->SetShip(this);
-        seeker->setPos(x()+95,y()+55);
-        seeker2->setPos(x()+155,y()+55);
-        seeker3->setPos(x()+33,y()+55);
+        if(seekerCounter%3==0)
+            seeker->setPos(x()+80,y()+55);
+        else if(seekerCounter%3==1)
+            seeker->setPos(x()+140,y()+55);
+        else if(seekerCounter%3==2)
+            seeker->setPos(x()+18,y()+55);
         scene()->addItem(seeker);
-        scene()->addItem(seeker2);
-        scene()->addItem(seeker3);
+        seekerCounter++;
     }
 
 
@@ -82,12 +91,148 @@ void FlyingSaucer::keyPressEvent(QKeyEvent *input)
 
 }
 
-void FlyingSaucer::SetSpawner(Spawner *s)
+void FlyingSaucer::keyReleaseEvent(QKeyEvent *released)
 {
-    spawner = s;
+    if(released->key() == Qt::Key_W)
+        QObject::disconnect(time, SIGNAL(timeout()), this, SLOT(MoveUp()));
+    else if(released->key() == Qt::Key_S)
+        QObject::disconnect(time, SIGNAL(timeout()), this, SLOT(MoveDown()));
+    else if(released->key() == Qt::Key_A)
+        QObject::disconnect(time, SIGNAL(timeout()), this, SLOT(MoveLeft()));
+    else if(released->key() == Qt::Key_D)
+        QObject::disconnect(time, SIGNAL(timeout()), this, SLOT(MoveRight()));
 }
 
-Spawner *FlyingSaucer::GetSpawner() const
+bool FlyingSaucer::isLess(Human* &h1, Human* &h2)
 {
-    return spawner;
+    if(h1 == nullptr) return true;
+    if(h2 == nullptr) return false;
+    if(h1->GetSpeed() < h2->GetSpeed()) return true;
+    return false;
+}
+
+void FlyingSaucer::populationInsert(Human* h1)
+{
+    // do the maintain before this
+    if(h1==nullptr) return;
+    if(population.empty())
+    {
+        population.push_back(h1);
+        return;
+    }
+
+    if(!isLess(h1,*(population.end() - 1)))
+    {
+        population.insert(population.end(), h1);
+        return;
+    }
+    for(std::vector<Human*>::iterator i =  population.begin(); i != population.end(); i++)
+    {
+        if(isLess(h1,(*i)))
+        {
+            population.insert(i, h1);
+            return;
+        }
+    }
+
+
+}
+
+void FlyingSaucer::populationMaintenance()
+{
+    for(std::vector<Human*>::iterator i = population.begin(); i != population.end(); i++)
+    {
+        if((*i) == nullptr)
+        {
+            population.erase(i);
+            i--;
+            continue;
+        }
+        if((*i)->isCaught())
+        {
+            scene()->removeItem((*i));
+            delete (*i);
+            (*i) == nullptr;
+            population.erase(i);
+            i--;
+        }
+    }
+}
+
+
+FlyingSaucer::~FlyingSaucer()
+{}
+
+void FlyingSaucer::MakeHuman()
+{
+    if(population.size() < 11)
+    {
+        Human* human = new Human();
+        human->SetMotherShip(this);
+        scene()->addItem(human);
+        populationInsert(human);
+        //if(population.size()==10) exit(0);
+    }
+}
+
+void FlyingSaucer::Animate()
+{
+    static int i = 0;
+    setPixmap(QPixmap(animationSlides[i]));
+    i++;
+    if(i==24) i = 0;
+}
+
+void FlyingSaucer::MoveUp()
+{
+    if(y()>5)
+    setPos(x(), y()-7);
+}
+
+void FlyingSaucer::MoveDown()
+{
+    if(y() < 400)
+    setPos(x(), y()+7);
+}
+
+void FlyingSaucer::MoveLeft()
+{
+    if(x()>10)
+        setPos(x()-7, y());
+}
+
+void FlyingSaucer::MoveRight()
+{
+    if(x()<1090)
+    setPos(x()+7, y());
+}
+
+void FlyingSaucer::initializeAnimation()
+{
+    animationSlides[0] = ":/UFO/Animation/Frames/00.gif";
+    animationSlides[1] = ":/UFO/Animation/Frames/01.gif";
+    animationSlides[2] = ":/UFO/Animation/Frames/02.gif";
+    animationSlides[3] = ":/UFO/Animation/Frames/03.gif";
+    animationSlides[4] = ":/UFO/Animation/Frames/04.gif";
+    animationSlides[5] = ":/UFO/Animation/Frames/05.gif";
+    animationSlides[6] = ":/UFO/Animation/Frames/06.gif";
+    animationSlides[7] = ":/UFO/Animation/Frames/07.gif";
+    animationSlides[8] = ":/UFO/Animation/Frames/08.gif";
+    animationSlides[9] = ":/UFO/Animation/Frames/09.gif";
+    animationSlides[10] = ":/UFO/Animation/Frames/10.gif";
+    animationSlides[11] = ":/UFO/Animation/Frames/11.gif";
+    animationSlides[12] = ":/UFO/Animation/Frames/12.gif";
+    animationSlides[13] = ":/UFO/Animation/Frames/13.gif";
+    animationSlides[14] = ":/UFO/Animation/Frames/14.gif";
+    animationSlides[15] = ":/UFO/Animation/Frames/15.gif";
+    animationSlides[16] = ":/UFO/Animation/Frames/16.gif";
+    animationSlides[17] = ":/UFO/Animation/Frames/17.gif";
+    animationSlides[18] = ":/UFO/Animation/Frames/18.gif";
+    animationSlides[19] = ":/UFO/Animation/Frames/19.gif";
+    animationSlides[20] = ":/UFO/Animation/Frames/20.gif";
+    animationSlides[21] = ":/UFO/Animation/Frames/21.gif";
+    animationSlides[22] = ":/UFO/Animation/Frames/22.gif";
+    animationSlides[23] = ":/UFO/Animation/Frames/23.gif";
+
+
 }

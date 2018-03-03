@@ -15,9 +15,12 @@ class Seeker: public QObject, public QGraphicsPixmapItem
 public:
     Seeker();
     void SetShip(FlyingSaucer* source);
+    void Caught();
+    void HasCaught();
 public slots:
     void Move();
 private:
+    bool caught;
     FlyingSaucer* motherShip;
 };
 

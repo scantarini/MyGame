@@ -4,9 +4,47 @@
         <file>capture2.png</file>
         <file>Character.png</file>
         <file>saucer.png</file>
+        <file>Character2.png</file>
+        <file>mario.gif</file>
     </qresource>
     <qresource prefix="/Music">
         <file>Metroid NES Music - Ridleys Hideout.mp3</file>
         <file>Galaga.mp3</file>
+    </qresource>
+    <qresource prefix="/MarioLeft">
+        <file>Animation/MarioLeftFrame/Frame0.gif</file>
+        <file>Animation/MarioLeftFrame/Frame1.gif</file>
+        <file>Animation/MarioLeftFrame/Frame2.gif</file>
+    </qresource>
+    <qresource prefix="/MarioRight">
+        <file>Animation/MarioRightFrames/Frame0.gif</file>
+        <file>Animation/MarioRightFrames/Frame1.gif</file>
+        <file>Animation/MarioRightFrames/Frame2.gif</file>
+    </qresource>
+    <qresource prefix="/UFO">
+        <file>Animation/Frames/00.gif</file>
+        <file>Animation/Frames/01.gif</file>
+        <file>Animation/Frames/02.gif</file>
+        <file>Animation/Frames/03.gif</file>
+        <file>Animation/Frames/04.gif</file>
+        <file>Animation/Frames/05.gif</file>
+        <file>Animation/Frames/06.gif</file>
+        <file>Animation/Frames/07.gif</file>
+        <file>Animation/Frames/08.gif</file>
+        <file>Animation/Frames/09.gif</file>
+        <file>Animation/Frames/10.gif</file>
+        <file>Animation/Frames/11.gif</file>
+        <file>Animation/Frames/12.gif</file>
+        <file>Animation/Frames/13.gif</file>
+        <file>Animation/Frames/14.gif</file>
+        <file>Animation/Frames/15.gif</file>
+        <file>Animation/Frames/16.gif</file>
+        <file>Animation/Frames/17.gif</file>
+        <file>Animation/Frames/18.gif</file>
+        <file>Animation/Frames/19.gif</file>
+        <file>Animation/Frames/20.gif</file>
+        <file>Animation/Frames/21.gif</file>
+        <file>Animation/Frames/22.gif</file>
+        <file>Animation/Frames/23.gif</file>
     </qresource>
 </RCC>

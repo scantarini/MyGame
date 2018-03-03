@@ -6,6 +6,8 @@
 #include <QTimer>
 
 class Beam;
+class Seeker;
+class FlyingSaucer;
 class Human: public QObject, public QGraphicsPixmapItem
 
 {
@@ -13,13 +15,22 @@ class Human: public QObject, public QGraphicsPixmapItem
 public:
     Human();
     Human(Beam* beam);
+    Human(Seeker* seeker);
+    void ChangeWalkDirection();
+    bool isCaught() const;
+    void Caught();
     int GetSpeed() const;
+    void SetMotherShip(FlyingSaucer* ship);
 public slots:
     void Move();
+    void ChangeAnimation();
 private:
+    int frameNumber;
+    bool caught;
     bool walkDirection; // 0 for left, 1 for right
     int walkSpeed;
     int height;
+    FlyingSaucer* motherShip;
 };
 
 #endif // HUMAN_H

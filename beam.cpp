@@ -1,5 +1,6 @@
 #include "beam.h"
 #include "human.h"
+#include "seeker.h"
 #include "flyingsaucer.h"
 
 
@@ -18,13 +19,17 @@ void Beam::SetShip(FlyingSaucer* source)
 
 void Beam::Move()
 {
+    bool caught = false;
     QList<QGraphicsItem *> collisionList = collidingItems();
     foreach(QGraphicsItem* h, collisionList)
     {
-        if(h!=motherShip)
+        if(h == motherShip) continue;
+        if(dynamic_cast<Seeker*>(h)) continue;
+
+        if(dynamic_cast<Human*>(h)->GetSpeed()>0)
         {
-            scene()->removeItem(dynamic_cast<Human*>(h));
-            delete h;
+            dynamic_cast<Human*>(h)->Caught();
+            caught = true;
         }
     }
 
@@ -34,4 +39,7 @@ void Beam::Move()
         scene()->removeItem(this);
         delete this;
     }
+
+    if(caught)
+        motherShip->populationMaintenance();
 }

@@ -1,15 +1,16 @@
 #include "flyingsaucer.h"
 #include "human.h"
+#include "beam.h"
 #include "seeker.h"
-#include "spawner.h"
 
 
 Seeker::Seeker()
 {
+    caught = false;
     setPixmap(QPixmap(":/Models/capture2.png"));
     QTimer* timer = new QTimer;
     QObject::connect(timer, SIGNAL(timeout()), this, SLOT(Move()));
-    timer->start(13);
+    timer->start(15);
 }
 
 void Seeker::SetShip(FlyingSaucer* source)
@@ -17,33 +18,33 @@ void Seeker::SetShip(FlyingSaucer* source)
     motherShip = source;
 }
 
-#include <QDebug>
 void Seeker::Move()
 {
-    QList<QGraphicsItem *> humanList = motherShip->GetSpawner()->childItems();
-    foreach(QGraphicsItem* h, humanList)
+    bool captured = false;
+    Human* h = motherShip->targetSlowestHuman();
+    if(h!=nullptr)
     {
-        if(h!=motherShip && dynamic_cast<Human*>(h)->GetSpeed() != 0)
-        {
-            setPos((29*x() + h->x())/30, (29*y() + h->y())/30);
-            break;
-        }
+        setPos((39*x() + h->x())/40, (39*y() + h->y())/40);
     }
-
     QList<QGraphicsItem *> collisionList = collidingItems();
-    foreach(QGraphicsItem* h, collidingItems())
+    if(!collidingItems().empty())
+    foreach(QGraphicsItem* a, collidingItems())
     {
-        if(h!=motherShip && !dynamic_cast<Seeker*>(h))
+        if(a == h)
         {
-            scene()->removeItem(dynamic_cast<Human*>(h));
-            delete h;
+           captured = true;
+           h->Caught();
+           break;
         }
     }
 
     setPos(x(), y()+1);
-    if(y()>595)
+    if(y()>570)
     {
         scene()->removeItem(this);
         delete this;
     }
+
+    if(captured)
+        motherShip->populationMaintenance();
 }
