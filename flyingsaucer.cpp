@@ -6,21 +6,20 @@
 
 FlyingSaucer::FlyingSaucer()
 {
-    time = new QTimer;
-    time->start(30);
+    time.start(30);
+
+
     initializeAnimation();
     seekerCounter = 0;
     setPixmap(QPixmap(":/UFO/Animation/Frames/00.gif"));
-    fire = new QMediaPlayer;
-    fire->setMedia(QUrl("qrc:/Music/Galaga.mp3"));
 
-    QTimer* timer = new QTimer();
-    QObject::connect(timer, SIGNAL(timeout()), this, SLOT(MakeHuman()));
-    timer->start(500);
+    fire.setMedia(QUrl("qrc:/Music/Galaga.mp3"));
 
-    QTimer* timer2 = new QTimer();
-    QObject::connect(timer2, SIGNAL(timeout()), this, SLOT(Animate()));
-    timer2->start(50);
+    QObject::connect(&spawnTimer, SIGNAL(timeout()), this, SLOT(MakeHuman()));
+    spawnTimer.start(500);
+
+    QObject::connect(&animationTimer, SIGNAL(timeout()), this, SLOT(Animate()));
+    animationTimer.start(50);
 }
 
 Human *FlyingSaucer::targetSlowestHuman()
@@ -32,20 +31,20 @@ Human *FlyingSaucer::targetSlowestHuman()
 void FlyingSaucer::keyPressEvent(QKeyEvent *input)
 {
     if(input->key() == Qt::Key_W)
-        QObject::connect(time, SIGNAL(timeout()), this, SLOT(MoveUp()));
+        QObject::connect(&time, SIGNAL(timeout()), this, SLOT(MoveUp()));
     else if(input->key() == Qt::Key_S)
-        QObject::connect(time, SIGNAL(timeout()), this, SLOT(MoveDown()));
+        QObject::connect(&time, SIGNAL(timeout()), this, SLOT(MoveDown()));
     else if(input->key() == Qt::Key_A)
-        QObject::connect(time, SIGNAL(timeout()), this, SLOT(MoveLeft()));
+        QObject::connect(&time, SIGNAL(timeout()), this, SLOT(MoveLeft()));
     else if(input->key() == Qt::Key_D)
-        QObject::connect(time, SIGNAL(timeout()), this, SLOT(MoveRight()));
+        QObject::connect(&time, SIGNAL(timeout()), this, SLOT(MoveRight()));
 
     else if(input->key() == Qt::Key_Space)
     {
-        if(fire->state() == QMediaPlayer::PlayingState)
-            fire->setPosition(0);
+        if(fire.state() == QMediaPlayer::PlayingState)
+            fire.setPosition(0);
         else
-            fire->play();
+            fire.play();
 
         Beam* greenBeam = new Beam;
         greenBeam->SetShip(this);
@@ -62,10 +61,10 @@ void FlyingSaucer::keyPressEvent(QKeyEvent *input)
     }
     else if(input->key() == Qt::Key_X)
     {
-        if(fire->state() == QMediaPlayer::PlayingState)
-            fire->setPosition(0);
+        if(fire.state() == QMediaPlayer::PlayingState)
+            fire.setPosition(0);
         else
-            fire->play();
+            fire.play();
 
         Seeker* seeker = new Seeker;
         seeker->SetShip(this);
@@ -94,13 +93,13 @@ void FlyingSaucer::keyPressEvent(QKeyEvent *input)
 void FlyingSaucer::keyReleaseEvent(QKeyEvent *released)
 {
     if(released->key() == Qt::Key_W)
-        QObject::disconnect(time, SIGNAL(timeout()), this, SLOT(MoveUp()));
+        QObject::disconnect(&time, SIGNAL(timeout()), this, SLOT(MoveUp()));
     else if(released->key() == Qt::Key_S)
-        QObject::disconnect(time, SIGNAL(timeout()), this, SLOT(MoveDown()));
+        QObject::disconnect(&time, SIGNAL(timeout()), this, SLOT(MoveDown()));
     else if(released->key() == Qt::Key_A)
-        QObject::disconnect(time, SIGNAL(timeout()), this, SLOT(MoveLeft()));
+        QObject::disconnect(&time, SIGNAL(timeout()), this, SLOT(MoveLeft()));
     else if(released->key() == Qt::Key_D)
-        QObject::disconnect(time, SIGNAL(timeout()), this, SLOT(MoveRight()));
+        QObject::disconnect(&time, SIGNAL(timeout()), this, SLOT(MoveRight()));
 }
 
 bool FlyingSaucer::isLess(Human* &h1, Human* &h2)

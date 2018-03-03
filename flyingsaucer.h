@@ -35,9 +35,11 @@ public slots:
     void MoveLeft();
     void MoveRight();
 private:
-    QTimer* time;
+    QTimer time;
+    QTimer animationTimer;
+    QTimer spawnTimer;
     int seekerCounter;
-    QMediaPlayer* fire;
+    QMediaPlayer fire;
     std::vector<Human*> population; // make this the live updater
     QString animationSlides[24];
 };
