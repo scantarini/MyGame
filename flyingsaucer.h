@@ -19,7 +19,7 @@ public:
 
 private:
     Spawner* spawner;
-    vector<Human*> population;
+    std::vector<Human*> population;
 };
 
 #endif // FLYINGSAUCER_H
