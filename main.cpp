@@ -3,6 +3,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include "flyingsaucer.h"
+#include "spawner.h"
 
 int main(int argc, char *argv[])
 {
@@ -27,6 +28,9 @@ int main(int argc, char *argv[])
     ship->setFlag(QGraphicsItem::ItemIsFocusable);
     ship->setFocus();
 
+    Spawner* spawner = new Spawner;
+    scene->addItem(spawner);
+    ship->SetSpawner(spawner);
 
 
 

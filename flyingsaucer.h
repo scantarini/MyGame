@@ -2,6 +2,7 @@
 #define FLYINGSAUCER_H
 
 #include <QGraphicsRectItem>
+#include <QGraphicsScene>
 #include <QKeyEvent>
 #include <vector>
 
@@ -13,7 +14,12 @@ class FlyingSaucer: public QGraphicsRectItem
 public:
     FlyingSaucer();
     void keyPressEvent(QKeyEvent* input);
-    std::vector<Human*> population; // make this the live updater
+    void SetSpawner(Spawner* s);
+    Spawner* GetSpawner() const;
+
+private:
+    Spawner* spawner;
+    vector<Human*> population;
 };
 
 #endif // FLYINGSAUCER_H
