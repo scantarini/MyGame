@@ -1,5 +1,8 @@
 #include "beam.h"
 #include "flyingsaucer.h"
+#include "spawner.h"
+#include "human.h"
+
 
 
 
@@ -34,11 +37,10 @@ void FlyingSaucer::keyPressEvent(QKeyEvent *input)
     else if(input->key() == Qt::Key_Space)
     {
         Beam* greenBeam = new Beam;
-        greenBeam->setRect(x(),y(),20,20);
         greenBeam->SetShip(this);
+        greenBeam->setRect(x(),y(),10,30);
         scene()->addItem(greenBeam);
     }
-
 
     if(x() < 10)
         setPos(10,y());
@@ -49,4 +51,14 @@ void FlyingSaucer::keyPressEvent(QKeyEvent *input)
     if(y() < 5)
         setPos(x(),5);
 
+}
+
+void FlyingSaucer::SetSpawner(Spawner *s)
+{
+    spawner = s;
+}
+
+Spawner *FlyingSaucer::GetSpawner() const
+{
+    return spawner;
 }

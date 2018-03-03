@@ -1,5 +1,6 @@
 #include "beam.h"
 #include "flyingsaucer.h"
+#include "human.h"
 
 
 Beam::Beam()
@@ -19,7 +20,11 @@ void Beam::Move()
     QList<QGraphicsItem *> collisionList = collidingItems();
     foreach(QGraphicsItem* h, collisionList)
     {
-        // right here, check to see if there is a collision with a person
+        if(h!=motherShip)
+        {
+            scene()->removeItem(dynamic_cast<Human*>(h));
+            delete h;
+        }
     }
 
     setPos(x(), y()+30);
