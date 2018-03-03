@@ -42,6 +42,22 @@ void FlyingSaucer::keyPressEvent(QKeyEvent *input)
         greenBeam->setRect(x(),y(),10,30);
         scene()->addItem(greenBeam);
     }
+    else if(input->key() == Qt::Key_X)
+    {
+
+        Seeker* seeker = new Seeker;
+        Seeker* seeker2 = new Seeker;
+        Seeker* seeker3 = new Seeker;
+        seeker->SetShip(this);
+        seeker2->SetShip(this);
+        seeker3->SetShip(this);
+        seeker->setPos(x()+95,y()+55);
+        seeker2->setPos(x()+155,y()+55);
+        seeker3->setPos(x()+33,y()+55);
+        scene()->addItem(seeker);
+        scene()->addItem(seeker2);
+        scene()->addItem(seeker3);
+    }
 
     if(x() < 10)
         setPos(10,y());
