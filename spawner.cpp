@@ -1,5 +1,6 @@
 #include "spawner.h"
 #include "human.h"
+#include <QDebug>
 
 Spawner::Spawner()
 {
@@ -13,9 +14,9 @@ void Spawner::spawnHuman()
     if(rand()%100 < 10)
     {
         Human* human = new Human();
-        human->setRect(0,0,7,20);
         human->setParentItem(this);
     }
 
     QList<QGraphicsItem *> h = this->childItems();
 }
+

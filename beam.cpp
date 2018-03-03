@@ -1,10 +1,11 @@
 #include "beam.h"
-#include "flyingsaucer.h"
 #include "human.h"
+#include "flyingsaucer.h"
 
 
 Beam::Beam()
 {
+    setPixmap(QPixmap(":/Models/capture2.png"));
     QTimer* timer = new QTimer;
     QObject::connect(timer, SIGNAL(timeout()), this, SLOT(Move()));
     timer->start(13);

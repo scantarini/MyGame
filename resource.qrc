@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/Models">
+        <file>Background.gif</file>
+        <file>capture2.png</file>
+        <file>Character.png</file>
+        <file>saucer.png</file>
+    </qresource>
+    <qresource prefix="/Music">
+        <file>Metroid NES Music - Ridleys Hideout.mp3</file>
+        <file>Galaga.mp3</file>
+    </qresource>
+</RCC>

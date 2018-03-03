@@ -1,12 +1,12 @@
 #ifndef HUMAN_H
 #define HUMAN_H
 
+#include <QGraphicsPixmapItem>
 #include <QGraphicsScene>
-#include <QGraphicsRectItem>
 #include <QTimer>
 
 class Beam;
-class Human: public QObject, public QGraphicsRectItem
+class Human: public QObject, public QGraphicsPixmapItem
 
 {
     Q_OBJECT

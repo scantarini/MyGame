@@ -1,15 +1,17 @@
 #include "beam.h"
 #include "flyingsaucer.h"
+#include "seeker.h"
 #include "spawner.h"
 #include "human.h"
-#include "seeker.h"
 
 
 
 
 FlyingSaucer::FlyingSaucer()
 {
-    setRect(0,0,150,50);
+    setPixmap(QPixmap(":/Models/saucer.png"));
+    fire = new QMediaPlayer;
+    fire->setMedia(QUrl("qrc:/Music/Galaga.mp3"));
 }
 
 void FlyingSaucer::keyPressEvent(QKeyEvent *input)
@@ -37,13 +39,22 @@ void FlyingSaucer::keyPressEvent(QKeyEvent *input)
 
     else if(input->key() == Qt::Key_Space)
     {
+        if(fire->state() == QMediaPlayer::PlayingState)
+            fire->setPosition(0);
+        else
+            fire->play();
+
         Beam* greenBeam = new Beam;
         greenBeam->SetShip(this);
-        greenBeam->setRect(x(),y(),10,30);
+        greenBeam->setPos(x()+95,y()+50);
         scene()->addItem(greenBeam);
     }
     else if(input->key() == Qt::Key_X)
     {
+        if(fire->state() == QMediaPlayer::PlayingState)
+            fire->setPosition(0);
+        else
+            fire->play();
 
         Seeker* seeker = new Seeker;
         Seeker* seeker2 = new Seeker;
@@ -58,6 +69,7 @@ void FlyingSaucer::keyPressEvent(QKeyEvent *input)
         scene()->addItem(seeker2);
         scene()->addItem(seeker3);
     }
+
 
     if(x() < 10)
         setPos(10,y());

@@ -1,13 +1,13 @@
 #ifndef BEAM_H
 #define BEAM_H
 
-#include <QGraphicsRectItem>
+#include <QGraphicsPixmapItem>
 #include <QGraphicsScene>
 #include <QKeyEvent>
 #include <QTimer>
 
 class FlyingSaucer;
-class Beam: public QObject, public QGraphicsRectItem
+class Beam: public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
 public:

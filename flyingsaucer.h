@@ -2,14 +2,16 @@
 #define FLYINGSAUCER_H
 
 #include <QGraphicsRectItem>
+#include <QGraphicsPixmapItem>
 #include <QGraphicsScene>
 #include <QKeyEvent>
+#include <QMediaPlayer>
 #include <vector>
 
 
 class Human;
 class Spawner;
-class FlyingSaucer: public QGraphicsRectItem
+class FlyingSaucer: public QGraphicsPixmapItem
 {
 public:
     FlyingSaucer();
@@ -19,7 +21,8 @@ public:
 
 private:
     Spawner* spawner;
-    std::vector<Human*> population;
+    QMediaPlayer* fire;
+    std::vector<Human*> population; // make this the live updater
 };
 
 #endif // FLYINGSAUCER_H

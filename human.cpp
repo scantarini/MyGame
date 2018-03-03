@@ -4,7 +4,7 @@
 
 Human::Human()
 {
-    // create a new class to set the rectangle height
+    setPixmap(QPixmap(":/Models/Character.png"));
     walkSpeed = rand()%5 + 5;
     walkDirection = rand()%2;
     if(walkDirection == 1)

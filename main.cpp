@@ -1,6 +1,11 @@
 #include <QApplication>
+#include <QTimer>
 #include <QGraphicsScene>
 #include <QGraphicsView>
+#include <QMediaPlayer>
+#include <QPixmap>
+#include <QImage>
+#include <QBrush>
 #include "flyingsaucer.h"
 #include "spawner.h"
 
@@ -15,6 +20,8 @@ int main(int argc, char *argv[])
     scene->setSceneRect(0,0,1280,720);
     view->setScene(scene);
     view->setFixedSize(1280,720);
+    scene->setBackgroundBrush(QBrush(QImage(":/Models/Background.gif")));
+
 
     view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -30,6 +37,11 @@ int main(int argc, char *argv[])
     Spawner* spawner = new Spawner;
     scene->addItem(spawner);
     ship->SetSpawner(spawner);
+
+    QMediaPlayer* music = new QMediaPlayer;
+    music->setMedia(QUrl("qrc:/Music/Metroid NES Music - Ridleys Hideout.mp3"));
+    music->play();
+
 
 
 

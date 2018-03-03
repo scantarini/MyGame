@@ -6,7 +6,7 @@
 
 Seeker::Seeker()
 {
-    setRect(0,0,20,20);
+    setPixmap(QPixmap(":/Models/capture2.png"));
     QTimer* timer = new QTimer;
     QObject::connect(timer, SIGNAL(timeout()), this, SLOT(Move()));
     timer->start(13);
