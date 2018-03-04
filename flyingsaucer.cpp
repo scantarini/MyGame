@@ -6,20 +6,19 @@
 
 FlyingSaucer::FlyingSaucer()
 {
-    time.start(30);
+    setPixmap(QPixmap(":/UFO/Animation/Frames/00.gif"));
+    fire.setMedia(QUrl("qrc:/Music/Galaga.mp3"));
 
+    time.start(30);
+    spawnTimer.start(500);
+    animationTimer.start(50);
+
+    QObject::connect(&spawnTimer, SIGNAL(timeout()), this, SLOT(MakeHuman()));
+    QObject::connect(&animationTimer, SIGNAL(timeout()), this, SLOT(Animate()));
 
     initializeAnimation();
     seekerCounter = 0;
-    setPixmap(QPixmap(":/UFO/Animation/Frames/00.gif"));
-
-    fire.setMedia(QUrl("qrc:/Music/Galaga.mp3"));
-
-    QObject::connect(&spawnTimer, SIGNAL(timeout()), this, SLOT(MakeHuman()));
-    spawnTimer.start(500);
-
-    QObject::connect(&animationTimer, SIGNAL(timeout()), this, SLOT(Animate()));
-    animationTimer.start(50);
+    exitable = false;
 }
 
 Human *FlyingSaucer::targetSlowestHuman()
@@ -157,7 +156,6 @@ void FlyingSaucer::populationMaintenance()
         }
     }
 }
-
 
 FlyingSaucer::~FlyingSaucer()
 {}

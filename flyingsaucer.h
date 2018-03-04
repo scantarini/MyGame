@@ -1,16 +1,13 @@
 #ifndef FLYINGSAUCER_H
 #define FLYINGSAUCER_H
 
-#include <QGraphicsRectItem>
 #include <QGraphicsPixmapItem>
 #include <QGraphicsScene>
-#include <QKeyEvent>
 #include <QMediaPlayer>
+#include <QKeyEvent>
 #include <QTimer>
 #include <QString>
 #include <vector>
-
-
 
 class Human;
 //class Spawner;
@@ -42,6 +39,7 @@ private:
     QMediaPlayer fire;
     std::vector<Human*> population; // make this the live updater
     QString animationSlides[24];
+    bool exitable;
 };
 
 #endif // FLYINGSAUCER_H

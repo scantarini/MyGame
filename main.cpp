@@ -3,7 +3,6 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include "flyingsaucer.h"
-#include "spawner.h"
 #include <QMediaPlayer>
 #include <QPixmap>
 #include <QImage>
