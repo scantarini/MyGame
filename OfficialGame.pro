@@ -30,14 +30,16 @@ SOURCES += \
     beam.cpp \
     human.cpp \
     spawner.cpp \
-    seeker.cpp
+    seeker.cpp \
+    et.cpp
 
 HEADERS += \
     flyingsaucer.h \
     beam.h \
     human.h \
     spawner.h \
-    seeker.h
+    seeker.h \
+    et.h
 
 FORMS +=
 

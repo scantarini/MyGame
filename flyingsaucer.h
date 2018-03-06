@@ -13,6 +13,7 @@
 #include <vector>
 
 class Human;
+class ET;
 //class Spawner;
 class FlyingSaucer: public QObject, public QGraphicsPixmapItem
 {
@@ -28,6 +29,8 @@ public:
     void initializeAnimation();
     virtual ~FlyingSaucer();
     void setExitText(QGraphicsTextItem* exitText);
+    void SetET(ET* player);
+    bool IsLeaving() const;
 public slots:
     void MakeHuman();
     void Animate();
@@ -35,6 +38,7 @@ public slots:
     void MoveDown();
     void MoveLeft();
     void MoveRight();
+    void Leave();
 private:
     QTimer time;
     QTimer animationTimer;
@@ -44,9 +48,9 @@ private:
     std::vector<Human*> population; // make this the live updater
     QString animationSlides[24];
     QGraphicsTextItem* exitMessage;
-    bool messageDisplayed;
-
     bool exitable;
+    bool leaving;
+    ET* et;
 };
 
 #endif // FLYINGSAUCER_H

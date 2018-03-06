@@ -2,8 +2,8 @@
 #include "beam.h"
 #include "seeker.h"
 #include "human.h"
+#include "et.h"
 
-QString exitText = "Press Enter to Exit Ship";
 FlyingSaucer::FlyingSaucer(QGraphicsTextItem* exit)
 {
     setPixmap(QPixmap(":/UFO/Animation/Frames/00.gif"));
@@ -19,6 +19,7 @@ FlyingSaucer::FlyingSaucer(QGraphicsTextItem* exit)
     initializeAnimation();
     seekerCounter = 0;
     exitable = false;
+    leaving = false;
     exitMessage = exit;
 }
 
@@ -76,6 +77,19 @@ void FlyingSaucer::keyPressEvent(QKeyEvent *input)
             seeker->setPos(x()+18,y()+55);
         scene()->addItem(seeker);
         seekerCounter++;
+    }
+    else if(exitable && input->key() == Qt::Key_Shift)
+    {
+        exitMessage->setPlainText("");
+        et->setMotherShip(this);
+        et->setPos(x(),500);
+        scene()->addItem(et);
+        et->setFlag(QGraphicsItem::ItemIsFocusable);
+        et->setFocus();
+        spawnTimer.stop();
+        leaving = true;
+        QObject::connect(&time, SIGNAL(timeout()), this, SLOT(Leave()));
+        QObject::disconnect(&time, SIGNAL(timeout()), this, SLOT(MoveDown()));
     }
 
 
@@ -161,6 +175,16 @@ void FlyingSaucer::populationMaintenance()
 FlyingSaucer::~FlyingSaucer()
 {}
 
+void FlyingSaucer::SetET(ET *player)
+{
+    et = player;
+}
+
+bool FlyingSaucer::IsLeaving() const
+{
+    return leaving;
+}
+
 void FlyingSaucer::MakeHuman()
 {
     if(population.size() < 8)
@@ -169,7 +193,6 @@ void FlyingSaucer::MakeHuman()
         human->SetMotherShip(this);
         scene()->addItem(human);
         populationInsert(human);
-        //if(population.size()==10) exit(0);
     }
 }
 
@@ -185,9 +208,9 @@ void FlyingSaucer::MoveUp()
 {
     if(y()>5)
     setPos(x(), y()-7);
-    if(messageDisplayed && y() < 390)
+    if(exitable && y() < 390)
     {
-        messageDisplayed = false;
+        exitable = false;
         exitMessage->setVisible(false);
     }
 }
@@ -196,9 +219,9 @@ void FlyingSaucer::MoveDown()
 {
     if(y() < 400)
     setPos(x(), y()+7);
-    if(!messageDisplayed && y() > 390)
+    if(!exitable && y() > 390)
     {
-        messageDisplayed = true;
+        exitable = true;
         exitMessage->setVisible(true);
     }
 }
@@ -213,6 +236,19 @@ void FlyingSaucer::MoveRight()
 {
     if(x()<1090)
         setPos(x()+7, y());
+}
+
+void FlyingSaucer::Leave()
+{
+    setY(y()-4);
+    if(y() < -200 && population.empty())
+    {
+        scene()->removeItem(this);
+        QObject::disconnect(&time, SIGNAL(timeout()), this, SLOT(Leave()));
+        time.stop();
+        animationTimer.stop();
+    }
+
 }
 
 void FlyingSaucer::initializeAnimation()

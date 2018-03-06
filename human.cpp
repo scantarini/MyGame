@@ -78,7 +78,14 @@ void Human::Move()
     }
     if(x() > 1280 || x() < 0)
     {
-        ChangeWalkDirection();
+        if(!motherShip->IsLeaving())
+            ChangeWalkDirection();
+        else
+        {
+            Caught();
+            motherShip->populationMaintenance();
+        }
+
     }
 }
 

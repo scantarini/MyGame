@@ -47,4 +47,48 @@
         <file>Animation/Frames/22.gif</file>
         <file>Animation/Frames/23.gif</file>
     </qresource>
+    <qresource prefix="/MetroidLeft">
+        <file>Animation/MetroidLeft/frame_00_delay-0.05s.gif</file>
+        <file>Animation/MetroidLeft/frame_01_delay-0.05s.gif</file>
+        <file>Animation/MetroidLeft/frame_02_delay-0.05s.gif</file>
+        <file>Animation/MetroidLeft/frame_03_delay-0.1s.gif</file>
+        <file>Animation/MetroidLeft/frame_04_delay-0.05s.gif</file>
+        <file>Animation/MetroidLeft/frame_05_delay-0.05s.gif</file>
+        <file>Animation/MetroidLeft/frame_06_delay-0.05s.gif</file>
+        <file>Animation/MetroidLeft/frame_07_delay-0.1s.gif</file>
+        <file>Animation/MetroidLeft/frame_08_delay-0.05s.gif</file>
+        <file>Animation/MetroidLeft/frame_09_delay-0.05s.gif</file>
+        <file>Animation/MetroidLeft/frame_10_delay-0.05s.gif</file>
+        <file>Animation/MetroidLeft/frame_11_delay-0.1s.gif</file>
+        <file>Animation/MetroidLeft/frame_12_delay-0.05s.gif</file>
+        <file>Animation/MetroidLeft/frame_13_delay-0.05s.gif</file>
+        <file>Animation/MetroidLeft/frame_14_delay-0.05s.gif</file>
+        <file>Animation/MetroidLeft/frame_15_delay-0.1s.gif</file>
+        <file>Animation/MetroidLeft/frame_16_delay-0.05s.gif</file>
+        <file>Animation/MetroidLeft/frame_17_delay-0.05s.gif</file>
+        <file>Animation/MetroidLeft/frame_18_delay-0.05s.gif</file>
+        <file>Animation/MetroidLeft/frame_19_delay-0.1s.gif</file>
+    </qresource>
+    <qresource prefix="/MetroidRight">
+        <file>Animation/MetroidRight/frame_00_delay-0.05s.gif</file>
+        <file>Animation/MetroidRight/frame_01_delay-0.05s.gif</file>
+        <file>Animation/MetroidRight/frame_02_delay-0.05s.gif</file>
+        <file>Animation/MetroidRight/frame_03_delay-0.1s.gif</file>
+        <file>Animation/MetroidRight/frame_04_delay-0.05s.gif</file>
+        <file>Animation/MetroidRight/frame_05_delay-0.05s.gif</file>
+        <file>Animation/MetroidRight/frame_06_delay-0.05s.gif</file>
+        <file>Animation/MetroidRight/frame_07_delay-0.1s.gif</file>
+        <file>Animation/MetroidRight/frame_08_delay-0.05s.gif</file>
+        <file>Animation/MetroidRight/frame_09_delay-0.05s.gif</file>
+        <file>Animation/MetroidRight/frame_10_delay-0.05s.gif</file>
+        <file>Animation/MetroidRight/frame_11_delay-0.1s.gif</file>
+        <file>Animation/MetroidRight/frame_12_delay-0.05s.gif</file>
+        <file>Animation/MetroidRight/frame_13_delay-0.05s.gif</file>
+        <file>Animation/MetroidRight/frame_14_delay-0.05s.gif</file>
+        <file>Animation/MetroidRight/frame_15_delay-0.1s.gif</file>
+        <file>Animation/MetroidRight/frame_16_delay-0.05s.gif</file>
+        <file>Animation/MetroidRight/frame_17_delay-0.05s.gif</file>
+        <file>Animation/MetroidRight/frame_18_delay-0.05s.gif</file>
+        <file>Animation/MetroidRight/frame_19_delay-0.1s.gif</file>
+    </qresource>
 </RCC>

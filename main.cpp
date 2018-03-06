@@ -8,6 +8,7 @@
 #include <QImage>
 #include <QBrush>
 #include <QGraphicsTextItem>
+#include <et.h>
 
 int main(int argc, char *argv[])
 {
@@ -30,7 +31,7 @@ int main(int argc, char *argv[])
     QColor color(255,255,255);
     QFont font;
     font.setPointSize(50);
-    exitMessage.setPlainText("Press Enter to Exit Ship");
+    exitMessage.setPlainText("Press Shift to Exit Ship");
     exitMessage.setVisible(false);
     exitMessage.setPos(200,100);
     exitMessage.setFont(font);
@@ -43,6 +44,8 @@ int main(int argc, char *argv[])
     ship->setFlag(QGraphicsItem::ItemIsFocusable);
     ship->setFocus();
 
+    ET* player = new ET;
+    ship->SetET(player);
 
     QMediaPlayer* music = new QMediaPlayer;
     music->setMedia(QUrl("qrc:/Music/Metroid NES Music - Ridleys Hideout.mp3"));
