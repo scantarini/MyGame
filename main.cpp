@@ -7,6 +7,7 @@
 #include <QPixmap>
 #include <QImage>
 #include <QBrush>
+#include <QGraphicsTextItem>
 
 int main(int argc, char *argv[])
 {
@@ -25,8 +26,18 @@ int main(int argc, char *argv[])
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
 
+    QGraphicsTextItem exitMessage;
+    QColor color(255,255,255);
+    QFont font;
+    font.setPointSize(50);
+    exitMessage.setPlainText("Press Enter to Exit Ship");
+    exitMessage.setVisible(false);
+    exitMessage.setPos(200,100);
+    exitMessage.setFont(font);
+    exitMessage.setDefaultTextColor(color);
+    scene->addItem(&exitMessage);
 
-    FlyingSaucer* ship = new FlyingSaucer;
+    FlyingSaucer* ship = new FlyingSaucer(&exitMessage);
     scene->addItem(ship);
     ship->setPos(580, 150);
     ship->setFlag(QGraphicsItem::ItemIsFocusable);

@@ -3,8 +3,8 @@
 #include "seeker.h"
 #include "human.h"
 
-
-FlyingSaucer::FlyingSaucer()
+QString exitText = "Press Enter to Exit Ship";
+FlyingSaucer::FlyingSaucer(QGraphicsTextItem* exit)
 {
     setPixmap(QPixmap(":/UFO/Animation/Frames/00.gif"));
     fire.setMedia(QUrl("qrc:/Music/Galaga.mp3"));
@@ -19,6 +19,7 @@ FlyingSaucer::FlyingSaucer()
     initializeAnimation();
     seekerCounter = 0;
     exitable = false;
+    exitMessage = exit;
 }
 
 Human *FlyingSaucer::targetSlowestHuman()
@@ -162,7 +163,7 @@ FlyingSaucer::~FlyingSaucer()
 
 void FlyingSaucer::MakeHuman()
 {
-    if(population.size() < 11)
+    if(population.size() < 8)
     {
         Human* human = new Human();
         human->SetMotherShip(this);
@@ -184,12 +185,22 @@ void FlyingSaucer::MoveUp()
 {
     if(y()>5)
     setPos(x(), y()-7);
+    if(messageDisplayed && y() < 390)
+    {
+        messageDisplayed = false;
+        exitMessage->setVisible(false);
+    }
 }
 
 void FlyingSaucer::MoveDown()
 {
     if(y() < 400)
     setPos(x(), y()+7);
+    if(!messageDisplayed && y() > 390)
+    {
+        messageDisplayed = true;
+        exitMessage->setVisible(true);
+    }
 }
 
 void FlyingSaucer::MoveLeft()
@@ -201,7 +212,7 @@ void FlyingSaucer::MoveLeft()
 void FlyingSaucer::MoveRight()
 {
     if(x()<1090)
-    setPos(x()+7, y());
+        setPos(x()+7, y());
 }
 
 void FlyingSaucer::initializeAnimation()

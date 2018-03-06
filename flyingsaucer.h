@@ -2,6 +2,9 @@
 #define FLYINGSAUCER_H
 
 #include <QGraphicsPixmapItem>
+#include <QGraphicsTextItem>
+#include <QColor>
+#include <QFont>
 #include <QGraphicsScene>
 #include <QMediaPlayer>
 #include <QKeyEvent>
@@ -15,7 +18,7 @@ class FlyingSaucer: public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
 public:
-    FlyingSaucer();
+    FlyingSaucer(QGraphicsTextItem* exit);
     Human* targetSlowestHuman();
     void keyPressEvent(QKeyEvent* input);
     void keyReleaseEvent(QKeyEvent* released);
@@ -24,6 +27,7 @@ public:
     void populationMaintenance();
     void initializeAnimation();
     virtual ~FlyingSaucer();
+    void setExitText(QGraphicsTextItem* exitText);
 public slots:
     void MakeHuman();
     void Animate();
@@ -39,6 +43,9 @@ private:
     QMediaPlayer fire;
     std::vector<Human*> population; // make this the live updater
     QString animationSlides[24];
+    QGraphicsTextItem* exitMessage;
+    bool messageDisplayed;
+
     bool exitable;
 };
 
