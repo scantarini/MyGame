@@ -6,6 +6,15 @@
         <file>saucer.png</file>
         <file>Character2.png</file>
         <file>mario.gif</file>
+        <file>aimingupleft.png</file>
+        <file>aimingupleft2.png</file>
+        <file>aimingupright.png</file>
+        <file>aimingupright2.png</file>
+        <file>standing4.png</file>
+        <file>standing5.png</file>
+        <file>standingleft.png</file>
+        <file>FacingLeft.gif</file>
+        <file>FacingRight.gif</file>
     </qresource>
     <qresource prefix="/Music">
         <file>Metroid NES Music - Ridleys Hideout.mp3</file>
