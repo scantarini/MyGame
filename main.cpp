@@ -8,7 +8,8 @@
 #include <QImage>
 #include <QBrush>
 #include <QGraphicsTextItem>
-#include <et.h>
+#include "et.h"
+#include "giant.h"
 
 int main(int argc, char *argv[])
 {
@@ -28,14 +29,13 @@ int main(int argc, char *argv[])
 
 
     QGraphicsTextItem exitMessage;
-    QColor color(255,255,255);
     QFont font;
     font.setPointSize(50);
     exitMessage.setPlainText("Press Shift to Exit Ship");
     exitMessage.setVisible(false);
     exitMessage.setPos(200,100);
     exitMessage.setFont(font);
-    exitMessage.setDefaultTextColor(color);
+    exitMessage.setDefaultTextColor(Qt::white);
     scene->addItem(&exitMessage);
 
     FlyingSaucer* ship = new FlyingSaucer(&exitMessage);
@@ -46,10 +46,6 @@ int main(int argc, char *argv[])
 
     ET* player = new ET;
     ship->SetET(player);
-
-    QMediaPlayer* music = new QMediaPlayer;
-    music->setMedia(QUrl("qrc:/Music/Metroid NES Music - Ridleys Hideout.mp3"));
-    music->play();
 
     view->show();
 

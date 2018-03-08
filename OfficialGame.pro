@@ -31,7 +31,10 @@ SOURCES += \
     human.cpp \
     spawner.cpp \
     seeker.cpp \
-    et.cpp
+    et.cpp \
+    giant.cpp \
+    laser.cpp \
+    missile.cpp
 
 HEADERS += \
     flyingsaucer.h \
@@ -39,7 +42,10 @@ HEADERS += \
     human.h \
     spawner.h \
     seeker.h \
-    et.h
+    et.h \
+    giant.h \
+    laser.h \
+    missile.h
 
 FORMS +=
 

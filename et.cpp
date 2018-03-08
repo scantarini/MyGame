@@ -1,7 +1,13 @@
 #include "et.h"
+#include "missile.h"
+#include <QGraphicsScene>
 
 ET::ET()
 {
+    health = 100;
+    fire.setMedia(QUrl("qrc:/Music/cannon.wav"));
+    shootingTimer = new QTimer;
+    shootingTimer->setSingleShot(true);
     walkDirection = 0;
     setAnimation();
     setPixmap(QPixmap(":/Models/standing4.png"));
@@ -44,6 +50,35 @@ void ET::keyPressEvent(QKeyEvent *input)
         QObject::disconnect(&movementTimer, SIGNAL(timeout()), this, SLOT(MoveRight()));
         QObject::disconnect(&movementTimer, SIGNAL(timeout()), this, SLOT(AnimateRight()));
         lookingUp = true;
+    }
+    else if(!shootingTimer->isActive() && input->key()==Qt::Key_Space)
+    {
+        if(fire.state() == QMediaPlayer::PlayingState)
+            fire.setPosition(0);
+        else
+            fire.play();
+
+        Missile* missile;
+        if(lookingUp)
+        {
+            missile = new Missile(2);
+            if(walkDirection)
+                missile->setPos(x()+50, y()-50);
+            else
+                missile->setPos(x()+45, y() -50);
+        }
+        else if(walkDirection)
+        {
+            missile = new Missile(1);
+            missile->setPos(x()+85, y()+48);
+        }
+        else
+        {
+            missile = new Missile(0);
+            missile->setPos(x()-20, y()+48);
+        }
+        scene()->addItem(missile);
+        shootingTimer->start(100);
     }
     standingStill = false;
     testTimer->start(200);

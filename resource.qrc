@@ -19,6 +19,8 @@
     <qresource prefix="/Music">
         <file>Metroid NES Music - Ridleys Hideout.mp3</file>
         <file>Galaga.mp3</file>
+        <file>Benny Hill 8 bit.mp3</file>
+        <file>cannon.wav</file>
     </qresource>
     <qresource prefix="/MarioLeft">
         <file>Animation/MarioLeftFrame/Frame0.gif</file>
@@ -100,5 +102,31 @@
         <file>Animation/MetroidRight/frame_18_delay-0.05s.gif</file>
         <file>Animation/MetroidRight/frame_19_delay-0.1s.gif</file>
     </qresource>
-    <qresource prefix="/Giant"/>
+    <qresource prefix="/Giant">
+        <file>Animation/Giant/00.gif</file>
+        <file>Animation/Giant/01.gif</file>
+        <file>Animation/Giant/02.gif</file>
+    </qresource>
+    <qresource prefix="/Laser">
+        <file>Animation/Laser/00.gif</file>
+        <file>Animation/Laser/01.gif</file>
+        <file>Animation/Laser/02.gif</file>
+        <file>Animation/Laser/03.gif</file>
+        <file>Animation/Laser/04.gif</file>
+        <file>Animation/Laser/05.gif</file>
+        <file>Animation/Laser/06.gif</file>
+        <file>Animation/Laser/07.gif</file>
+        <file>Animation/Laser/08.gif</file>
+        <file>Animation/Laser/09.gif</file>
+        <file>Animation/Laser/10.gif</file>
+        <file>Animation/Laser/11.gif</file>
+        <file>Animation/Laser/12.gif</file>
+        <file>Animation/Laser/13.gif</file>
+        <file>Animation/Laser/14.gif</file>
+    </qresource>
+    <qresource prefix="/Missile">
+        <file>Animation/Missile/shootleft.png</file>
+        <file>Animation/Missile/shootright.png</file>
+        <file>Animation/Missile/shootup.png</file>
+    </qresource>
 </RCC>

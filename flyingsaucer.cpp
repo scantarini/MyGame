@@ -3,6 +3,8 @@
 #include "seeker.h"
 #include "human.h"
 #include "et.h"
+#include "giant.h"
+#include <QGraphicsView>
 
 FlyingSaucer::FlyingSaucer(QGraphicsTextItem* exit)
 {
@@ -21,6 +23,9 @@ FlyingSaucer::FlyingSaucer(QGraphicsTextItem* exit)
     exitable = false;
     leaving = false;
     exitMessage = exit;
+    music = new QMediaPlayer;
+    music->setMedia(QUrl("qrc:/Music/Metroid NES Music - Ridleys Hideout.mp3"));
+    music->play();
 }
 
 Human *FlyingSaucer::targetSlowestHuman()
@@ -241,12 +246,18 @@ void FlyingSaucer::MoveRight()
 void FlyingSaucer::Leave()
 {
     setY(y()-4);
+    music->setVolume(music->volume()-1);
     if(y() < -200 && population.empty())
     {
+        Giant* giant = new Giant;
+        giant->SetET(et);
+        scene()->addItem(giant);
         scene()->removeItem(this);
         QObject::disconnect(&time, SIGNAL(timeout()), this, SLOT(Leave()));
         time.stop();
         animationTimer.stop();
+        delete music;
+        delete this;
     }
 
 }
