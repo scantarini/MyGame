@@ -14,6 +14,7 @@ While not in flying saucer:
 a - moves the player left
 d - moves the player right
 w - makes the player look upwards
+space - shoots in the direction the player is facing
 
 
 
