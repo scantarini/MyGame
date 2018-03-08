@@ -12,9 +12,9 @@
 #include <QString>
 #include <vector>
 
+class Giant;
 class Human;
 class ET;
-//class Spawner;
 class FlyingSaucer: public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
@@ -51,6 +51,7 @@ private:
     bool exitable;
     bool leaving;
     ET* et;
+    QMediaPlayer* music;
 };
 
 #endif // FLYINGSAUCER_H

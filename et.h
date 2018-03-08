@@ -6,6 +6,7 @@
 #include <QKeyEvent>
 #include <QTimer>
 #include <QString>
+#include <QMediaPlayer>
 
 class FlyingSaucer;
 class ET: public QObject, public QGraphicsPixmapItem
@@ -33,10 +34,12 @@ private:
     QString leftAnimation[20];
 
     QTimer* testTimer;
+    QTimer* shootingTimer;
     bool standingStill;
     bool walkDirection;
     bool lookingUp;
-
+    QMediaPlayer fire;
+    int health;
 };
 
 
