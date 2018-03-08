@@ -88,11 +88,10 @@ class is not allowed to have more than one QTimer object.
 To fix this, I changed one of the QTimers to a QTimer*.
 
 Plans:
-1. Allow players to enter and leave from doors on the background image.
-Keep track of how many Humans are currently inside the building
+1. Add health displays for player and enemy classes.
 using smart pointers.
-2. I plan on learning how to add live messages to views
+2. I plan on learning how to add live messages to views.
 to output some information about the current state of the game.
-3. I plan on learning to switch the view between scene objects
+3. I plan on learning to switch the view between different scene objects.
 to create a loading/pause screen.
 4. Learning about the QMovie library.
