@@ -100,4 +100,5 @@
         <file>Animation/MetroidRight/frame_18_delay-0.05s.gif</file>
         <file>Animation/MetroidRight/frame_19_delay-0.1s.gif</file>
     </qresource>
+    <qresource prefix="/Giant"/>
 </RCC>
