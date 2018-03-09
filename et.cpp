@@ -203,6 +203,7 @@ void ET::StopMovement()
     collisionTimer->stop();
     testTimer->stop();
     shootingTimer->stop();
+    movementTimer.stop();
 }
 
 
