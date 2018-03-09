@@ -16,7 +16,14 @@ class Giant: public QObject, public QGraphicsPixmapItem
 public:
     Giant();
     void SetET(ET* player);
+    void DecrementHealth();
+    void Initialize();
+    int GetHealth() const;
+    void Destruct();
     virtual ~Giant();
+signals:
+    void HealthChanged(int newHealth);
+    void Destroyed();
 public slots:
     void Enter();
     void Shoot();

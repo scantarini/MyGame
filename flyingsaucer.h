@@ -31,6 +31,9 @@ public:
     void setExitText(QGraphicsTextItem* exitText);
     void SetET(ET* player);
     bool IsLeaving() const;
+    void SetGiant(Giant* g);
+signals:
+    void ETVisible();
 public slots:
     void MakeHuman();
     void Animate();
@@ -51,6 +54,7 @@ private:
     bool exitable;
     bool leaving;
     ET* et;
+    Giant* giant;
     QMediaPlayer* music;
 };
 

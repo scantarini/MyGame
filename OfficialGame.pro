@@ -34,7 +34,9 @@ SOURCES += \
     et.cpp \
     giant.cpp \
     laser.cpp \
-    missile.cpp
+    missile.cpp \
+    gameender.cpp \
+    healthmanager.cpp
 
 HEADERS += \
     flyingsaucer.h \
@@ -45,7 +47,9 @@ HEADERS += \
     et.h \
     giant.h \
     laser.h \
-    missile.h
+    missile.h \
+    gameender.h \
+    healthmanager.h
 
 FORMS +=
 

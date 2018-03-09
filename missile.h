@@ -13,9 +13,11 @@ public slots:
     void MoveUp();
     void MoveLeft();
     void MoveRight();
+    void CheckCollision();
 private:
     int direction;
     static QTimer movementTimer;
+    static QTimer collisionTimer;
 };
 
 #endif // MISSILE_H

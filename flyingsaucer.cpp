@@ -4,10 +4,10 @@
 #include "human.h"
 #include "et.h"
 #include "giant.h"
-#include <QGraphicsView>
 
 FlyingSaucer::FlyingSaucer(QGraphicsTextItem* exit)
 {
+    setZValue(2);
     setPixmap(QPixmap(":/UFO/Animation/Frames/00.gif"));
     fire.setMedia(QUrl("qrc:/Music/Galaga.mp3"));
 
@@ -85,6 +85,8 @@ void FlyingSaucer::keyPressEvent(QKeyEvent *input)
     }
     else if(exitable && input->key() == Qt::Key_Shift)
     {
+        et->setVisible(true);
+        emit ETVisible();
         exitMessage->setPlainText("");
         et->setMotherShip(this);
         et->setPos(x(),500);
@@ -190,6 +192,11 @@ bool FlyingSaucer::IsLeaving() const
     return leaving;
 }
 
+void FlyingSaucer::SetGiant(Giant *g)
+{
+    giant = g;
+}
+
 void FlyingSaucer::MakeHuman()
 {
     if(population.size() < 8)
@@ -249,7 +256,8 @@ void FlyingSaucer::Leave()
     music->setVolume(music->volume()-1);
     if(y() < -200 && population.empty())
     {
-        Giant* giant = new Giant;
+        giant->setVisible(true);
+        giant->Initialize();
         giant->SetET(et);
         scene()->addItem(giant);
         scene()->removeItem(this);

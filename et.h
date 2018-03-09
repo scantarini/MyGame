@@ -14,9 +14,13 @@ class ET: public QObject, public QGraphicsPixmapItem
     Q_OBJECT
 public:
     ET();
+    virtual ~ET();
     void setMotherShip(FlyingSaucer* ship);
     void setAnimation();
-
+    int GetHealth() const;
+signals:
+    void HealthChanged(int newHealth);
+    void Destroyed();
 public slots:
     void keyPressEvent(QKeyEvent* input);
     void keyReleaseEvent(QKeyEvent* released);
@@ -27,12 +31,14 @@ public slots:
     void MoveUp();
     void MoveDown();
     void StandStill();
+    void CheckCollision();
 private:
     QTimer movementTimer;
     FlyingSaucer* motherShip;
     QString rightAnimation[20];
     QString leftAnimation[20];
 
+    QTimer* collisionTimer;
     QTimer* testTimer;
     QTimer* shootingTimer;
     bool standingStill;

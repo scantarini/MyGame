@@ -1,10 +1,16 @@
 #include "missile.h"
 #include <QGraphicsScene>
+#include "laser.h"
+#include "giant.h"
+#include "et.h"
 
 QTimer Missile::movementTimer;
+QTimer Missile::collisionTimer;
 
 Missile::Missile(int dir)
 {
+    setZValue(5);
+    QObject::connect(&collisionTimer, SIGNAL(timeout()), this, SLOT(CheckCollision()));
     // Direction 0 means left
     // Direction 1 means right
     // Direction 2 means up
@@ -27,6 +33,10 @@ Missile::Missile(int dir)
     if(!movementTimer.isActive())
     {
         movementTimer.start(15);
+    }
+    if(!collisionTimer.isActive())
+    {
+        collisionTimer.start(100);
     }
 }
 
@@ -61,5 +71,29 @@ void Missile::MoveRight()
         QObject::disconnect(&movementTimer, SIGNAL(timeout()), this, SLOT(MoveRight()));
         scene()->removeItem(this);
         delete this;
+    }
+}
+
+void Missile::CheckCollision()
+{
+    QList<QGraphicsItem *> collisionList = collidingItems();
+    foreach(QGraphicsItem* h, collisionList)
+    {
+        if(dynamic_cast<Laser*>(h))
+        {
+            scene()->removeItem(h);
+            scene()->removeItem(this);
+            delete h;
+            delete this;
+            return;
+        }
+        else if(dynamic_cast<Giant*>(h))
+        {
+            if(x() > 400 && x() < 930)
+                dynamic_cast<Giant*>(h)->DecrementHealth();
+            scene()->removeItem(this);
+            delete this;
+            return;
+        }
     }
 }

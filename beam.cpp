@@ -32,14 +32,12 @@ void Beam::Move()
             caught = true;
         }
     }
-
     setPos(x(), y()+30);
     if(y()>595)
     {
         scene()->removeItem(this);
         delete this;
     }
-
     if(caught)
         motherShip->populationMaintenance();
 }

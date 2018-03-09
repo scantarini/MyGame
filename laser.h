@@ -1,5 +1,5 @@
 #ifndef LASER_H
-#define LASER_H
+#define LASER_Hd
 
 #include <QGraphicsPixmapItem>
 #include <QTimer>
@@ -14,14 +14,11 @@ public:
     Laser(int x_pos, int y_pos, int x_speed, int y_speed);
 public slots:
     void Move();
-    void Animate();
 
 private:
     int horizSpeed;
     int vertSpeed;
     QTimer* movementTimer;
-    QTimer* animationTimer;
-    int animationPosition;
 
 };
 

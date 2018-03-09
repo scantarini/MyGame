@@ -12,6 +12,13 @@ QString giantAnimation[3] =
 
 
 Giant::Giant()
+{}
+
+void Giant::SetET(ET *player)
+{
+    et = player;
+}
+void Giant::Initialize()
 {
     health = 100;
     isEntered = false;
@@ -35,17 +42,40 @@ Giant::Giant()
     musicTimer->start(75);
 }
 
-void Giant::SetET(ET *player)
+void Giant::DecrementHealth()
 {
-    et = player;
+    health -= 1;
+
+    if(health <= 0)
+    {
+        emit Destroyed();
+        giantTimer->stop();
+        animationTimer->stop();
+        shootTimer->stop();
+        scene()->removeItem(this);
+        return;
+    }
+    else
+        emit HealthChanged(health);
+
+}
+
+int Giant::GetHealth() const
+{
+    return health;
+}
+
+void Giant::Destruct()
+{
 }
 
 Giant::~Giant()
 {
     delete giantTimer;
-    delete animationTimer;
-    delete shootTimer;
     delete musicTimer;
+    delete animationTimer;
+    delete music;
+    delete shootTimer;
 }
 
 void Giant::Enter()
@@ -57,7 +87,7 @@ void Giant::Enter()
         QObject::disconnect(giantTimer, SIGNAL(timeout()), this, SLOT(Enter()));
         shootTimer = new QTimer;
         QObject::connect(shootTimer, SIGNAL(timeout()), this, SLOT(Shoot()));
-        shootTimer->start(700);
+        shootTimer->start(1000);
     }
 }
 
@@ -81,11 +111,11 @@ void Giant::Shoot()
     }
     else if(i%3==1)
     {
-        laser0 = new Laser(15,150,4,5);
+        laser0 = new Laser(15,150,3,5);
         laser1 = new Laser(140,120,3,5);
         laser2 = new Laser(250,190,2,5);
         laser3 = new Laser(670,100,0,6);
-        laser4 = new Laser(1090,190,-4,5);
+        laser4 = new Laser(1090,190,-3,5);
         laser5 = new Laser(1200,100,-5,5);
     }
     else
@@ -120,6 +150,5 @@ void Giant::StartMusic()
     {
         musicTimer->stop();
         QObject::disconnect(musicTimer, SIGNAL(timeout()), this, SLOT(StartMusic()));
-        delete musicTimer;
     }
 }

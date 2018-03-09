@@ -15,6 +15,7 @@
         <file>standingleft.png</file>
         <file>FacingLeft.gif</file>
         <file>FacingRight.gif</file>
+        <file>exit.png</file>
     </qresource>
     <qresource prefix="/Music">
         <file>Metroid NES Music - Ridleys Hideout.mp3</file>

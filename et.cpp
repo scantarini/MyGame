@@ -1,22 +1,39 @@
 #include "et.h"
 #include "missile.h"
 #include <QGraphicsScene>
+#include "laser.h"
 
 ET::ET()
 {
-    health = 100;
-    fire.setMedia(QUrl("qrc:/Music/cannon.wav"));
-    shootingTimer = new QTimer;
-    shootingTimer->setSingleShot(true);
-    walkDirection = 0;
     setAnimation();
     setPixmap(QPixmap(":/Models/standing4.png"));
-    movementTimer.start(20);
-    testTimer = new QTimer;
-    testTimer->setSingleShot(true);
+
+    health = 100;
+    walkDirection = 0;
     standingStill = true;
     lookingUp = false;
+
+    fire.setMedia(QUrl("qrc:/Music/cannon.wav"));
+
+    collisionTimer = new QTimer;
+    shootingTimer = new QTimer;
+    testTimer = new QTimer;
+
+    shootingTimer->setSingleShot(true);
+    testTimer->setSingleShot(true);
+
+    QObject::connect(collisionTimer, SIGNAL(timeout()), this, SLOT(CheckCollision()));
     QObject::connect(testTimer, SIGNAL(timeout()), this, SLOT(StandStill()));
+    collisionTimer->start(100);
+    movementTimer.start(20);
+
+}
+
+ET::~ET()
+{
+    delete collisionTimer;
+    delete testTimer;
+    delete shootingTimer;
 }
 
 void ET::setMotherShip(FlyingSaucer *ship)
@@ -154,6 +171,33 @@ void ET::StandStill()
     }
 }
 
+void ET::CheckCollision()
+{
+    QList<QGraphicsItem *> collisionList = collidingItems();
+    foreach(QGraphicsItem* h, collisionList)
+    {
+        if(dynamic_cast<Laser*>(h))
+        {
+            health -= 20;
+            scene()->removeItem(h);
+            delete h;
+            if(health <= 0)
+            {
+                emit Destroyed();
+                QObject::disconnect(&movementTimer, SIGNAL(timeout()), this, SLOT(MoveLeft()));
+                QObject::disconnect(&movementTimer, SIGNAL(timeout()), this, SLOT(AnimateLeft()));
+                QObject::disconnect(&movementTimer, SIGNAL(timeout()), this, SLOT(MoveRight()));
+                QObject::disconnect(&movementTimer, SIGNAL(timeout()), this, SLOT(AnimateRight()));
+                scene()->removeItem(this);
+                delete this;
+                return;
+            }
+            emit HealthChanged(health);
+            return;
+        }
+    }
+}
+
 
 void ET::setAnimation()
 {
@@ -198,4 +242,9 @@ void ET::setAnimation()
     rightAnimation[17] = ":/MetroidRight/Animation/MetroidRight/frame_17_delay-0.05s.gif";
     rightAnimation[18] = ":/MetroidRight/Animation/MetroidRight/frame_18_delay-0.05s.gif";
     rightAnimation[19] = ":/MetroidRight/Animation/MetroidRight/frame_19_delay-0.1s.gif";
+}
+
+int ET::GetHealth() const
+{
+    return health;
 }
