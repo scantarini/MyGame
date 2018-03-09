@@ -48,6 +48,7 @@ void Giant::DecrementHealth()
 
     if(health <= 0)
     {
+        et->StopMovement();
         emit Destroyed();
         giantTimer->stop();
         animationTimer->stop();

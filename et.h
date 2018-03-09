@@ -32,6 +32,7 @@ public slots:
     void MoveDown();
     void StandStill();
     void CheckCollision();
+    void StopMovement();
 private:
     QTimer movementTimer;
     FlyingSaucer* motherShip;

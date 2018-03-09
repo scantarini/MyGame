@@ -198,6 +198,13 @@ void ET::CheckCollision()
     }
 }
 
+void ET::StopMovement()
+{
+    collisionTimer->stop();
+    testTimer->stop();
+    shootingTimer->stop();
+}
+
 
 void ET::setAnimation()
 {
