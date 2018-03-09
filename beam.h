@@ -11,7 +11,7 @@ class Beam: public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
 public:
-    Beam();
+    Beam();                             //
     void SetShip(FlyingSaucer* source);
 public slots:
     void Move();

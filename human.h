@@ -31,6 +31,8 @@ private:
     int walkSpeed;
     int height;
     FlyingSaucer* motherShip;
+    static QTimer movementTimer;
+    static QTimer animationTimer;
 };
 
 #endif // HUMAN_H

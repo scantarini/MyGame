@@ -3,6 +3,8 @@
 #include "seeker.h"
 #include "flyingsaucer.h"
 
+QTimer Human::movementTimer;
+QTimer Human::animationTimer;
 
 Human::Human()
 {
@@ -22,12 +24,12 @@ Human::Human()
         setPos(1280,575);
     }
 
-    QTimer* timer = new QTimer;
-    QObject::connect(timer, SIGNAL(timeout()), this, SLOT(Move()));
-    timer->start(20);
-    QTimer* timer2 = new QTimer;
-    QObject::connect(timer2, SIGNAL(timeout()), this, SLOT(ChangeAnimation()));
-    timer2->start(333);
+    //QTimer* timer = new QTimer;
+    QObject::connect(&movementTimer, SIGNAL(timeout()), this, SLOT(Move()));
+    movementTimer.start(20);
+    //QTimer* timer2 = new QTimer;
+    QObject::connect(&animationTimer, SIGNAL(timeout()), this, SLOT(ChangeAnimation()));
+    animationTimer.start(333);
 }
 
 Human::Human(Beam *beam)
