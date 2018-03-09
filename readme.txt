@@ -1,5 +1,7 @@
 NOTE: There is music. Be careful for the volume.
 
+Documentation will be added soon.
+
 I made a demo without a microphone.
 I plan on making another one with a microphone.
 Here is the link:
