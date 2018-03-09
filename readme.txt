@@ -1,5 +1,10 @@
 NOTE: There is music. Be careful for the volume.
 
+I made a demo without a microphone.
+I plan on making another one with a microphone.
+Here is the link:
+https://www.youtube.com/watch?v=fkqktoYnFCo
+
 Controls:
 While in the flying saucer:
 w - moves the flying saucer up
