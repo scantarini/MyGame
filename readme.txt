@@ -48,6 +48,10 @@ Through this project, I have learned/implemented the following:
 -How to update an image on a timer to create animation.
 -How to reset the focused object to allow the keyinput to act
  on different objects.
+-How to make a graphics class respond to a clicks
+-How to make my own signals for my QGraphics classes
+ (and how to use the emit keyword)
+-
 
 
 Along the way, I have learned about the following Qt libraries:
@@ -63,6 +67,9 @@ QList
 QGraphicsTextItem
 QFont
 QColor
+QDocument
+QGraphicsSceneMouseEvent
+
 
 Difficulties:
 1.  I had trouble maintaining a sorted data structure that
@@ -95,11 +102,28 @@ this problem.
 class is not allowed to have more than one QTimer object.
 To fix this, I changed one of the QTimers to a QTimer*.
 
+5. I had difficulty in general implementing QGraphicsTextItem
+objects. I think this is because there are so many associated
+classes (such as QColor, QFont, QDocument).
+
+5. I had trouble making QGraphicsTextItems in main that could
+be modified in my class. I put the QGraphicsTextItem in main
+because trying to perform scene()->addItem(&QGraphicsTextItemObj)
+in anywhere but main (where the scene object is declared) crashes
+the program. I believe this is because QGraphicsTextItem has
+specified that copying is disabled. To fix this, I passed
+pointers to the QGraphicsTextItems into a health manager class.
+Documentation will be added soon.
+
 Plans:
 1. Add health displays for player and enemy classes.
-using smart pointers.
+using smart pointers. (done)
 2. I plan on learning how to add live messages to views.
+(done)
 to output some information about the current state of the game.
+(done)
 3. I plan on learning to switch the view between different scene objects.
-to create a loading/pause screen.
+to create a loading/pause screen. (only an exit button - done)
 4. Learning about the QMovie library.
+5. Changing my code to implement generic algorithms
+6. Add documentation
