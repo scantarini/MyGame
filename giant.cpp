@@ -3,6 +3,7 @@
 #include "et.h"
 #include <QString>
 
+// The animation images for the giant
 QString giantAnimation[3] =
 {
     ":/Giant/Animation/Giant/00.gif",
@@ -10,16 +11,28 @@ QString giantAnimation[3] =
     ":/Giant/Animation/Giant/02.gif"
 };
 
-
+// Constructor
 Giant::Giant()
 {}
 
+// Sets the pointer to the ET (the player after exiting the flying saucer)
 void Giant::SetET(ET *player)
 {
     et = player;
 }
+
+// Initializes attributes for the giant.
+// This takes place after the constructor so the giant can be modified by other classes before it influences the scene
+// (such as by changing the music)
 void Giant::Initialize()
 {
+    /*
+    * Initializes health to 100
+    * Initializes isEntered to false (tells that the entering action for the giant has not completed, so don't start shooting lasers)
+    * Sets the image of the giant to the first position in the giantAnimation array
+    * Begins the entering process of the giant
+    * Plays the new music (and fades it in with the StartMusic() function)
+    */
     health = 100;
     isEntered = false;
     animationPosition = 0;
@@ -42,10 +55,12 @@ void Giant::Initialize()
     musicTimer->start(75);
 }
 
+// Decreases the giant's health by 1 (when it is hit by a missile)
 void Giant::DecrementHealth()
 {
     health -= 1;
 
+    // If the giant is destroyed, stop it from shooting and stop its animation
     if(health <= 0)
     {
         et->StopMovement();
@@ -53,23 +68,20 @@ void Giant::DecrementHealth()
         giantTimer->stop();
         animationTimer->stop();
         shootTimer->stop();
-        scene()->removeItem(this);
         return;
     }
     else
-        emit HealthChanged(health);
+        emit HealthChanged(health); // Tells the health manager that the health of the giant has changed
 
 }
 
+// Returns the giant's health
 int Giant::GetHealth() const
 {
     return health;
 }
 
-void Giant::Destruct()
-{
-}
-
+// Deletes all dynamically-allocated memory
 Giant::~Giant()
 {
     delete giantTimer;
@@ -79,6 +91,7 @@ Giant::~Giant()
     delete shootTimer;
 }
 
+// Controls the entering movement for the giant
 void Giant::Enter()
 {
     if(y() < 0)
@@ -87,13 +100,17 @@ void Giant::Enter()
     {
         QObject::disconnect(giantTimer, SIGNAL(timeout()), this, SLOT(Enter()));
         shootTimer = new QTimer;
+
+        // Gets the giant to start shooting
         QObject::connect(shootTimer, SIGNAL(timeout()), this, SLOT(Shoot()));
         shootTimer->start(1000);
     }
 }
 
+// Adds lasers to the scene
 void Giant::Shoot()
 {
+    // Creates 5 new lasers
     static int i = 0;
     Laser* laser0;
     Laser* laser1;
@@ -101,6 +118,8 @@ void Giant::Shoot()
     Laser* laser3;
     Laser* laser4;
     Laser* laser5;
+
+    // Fires the lasers in different (preset) patterns
     if(i%3==0)
     {
         laser0 = new Laser(15,150,7,5);
@@ -137,6 +156,7 @@ void Giant::Shoot()
     ++i;
 }
 
+// Updates the animation image in the giantAnimation array
 void Giant::Animate()
 {
     setPixmap(QPixmap(giantAnimation[animationPosition]));
@@ -144,6 +164,7 @@ void Giant::Animate()
     if(animationPosition == 3) animationPosition = 0;
 }
 
+// Fades in the new background music
 void Giant::StartMusic()
 {
     music->setVolume(music->volume() + 2);

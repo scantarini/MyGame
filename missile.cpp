@@ -4,13 +4,21 @@
 #include "giant.h"
 #include "et.h"
 
+// Initializes static member variables
 QTimer Missile::movementTimer;
 QTimer Missile::collisionTimer;
 
+// Constructor
 Missile::Missile(int dir)
 {
+    /***************************************************
+    * Sets the Z value
+    * Connects the collision detection to a timer
+    * Connects the movement in each direction to a timer
+    ***************************************************/
     setZValue(5);
     QObject::connect(&collisionTimer, SIGNAL(timeout()), this, SLOT(CheckCollision()));
+
     // Direction 0 means left
     // Direction 1 means right
     // Direction 2 means up
@@ -40,6 +48,7 @@ Missile::Missile(int dir)
     }
 }
 
+// Moves the missile upward. Disconnect the movement when it exceeds the screen boundary.
 void Missile::MoveUp()
 {
     setY(y()-15);
@@ -51,6 +60,7 @@ void Missile::MoveUp()
     }
 }
 
+// Moves the missile left. Disconnect the movement when it exceeds the screen boundary.
 void Missile::MoveLeft()
 {
     setX(x()-15);
@@ -62,6 +72,7 @@ void Missile::MoveLeft()
     }
 }
 
+// Moves the missile right. Disconnect the movement when it exceeds the screen boundary.
 void Missile::MoveRight()
 {
     setX(x()+15);
@@ -74,11 +85,14 @@ void Missile::MoveRight()
     }
 }
 
+// Checks if there is collision with the giant or a laser
 void Missile::CheckCollision()
 {
+    // Runs through the list of colliding items
     QList<QGraphicsItem *> collisionList = collidingItems();
     foreach(QGraphicsItem* h, collisionList)
     {
+        // If the colliding item is a laser, remove and delete both the laser and the missile
         if(dynamic_cast<Laser*>(h))
         {
             scene()->removeItem(h);
@@ -87,6 +101,8 @@ void Missile::CheckCollision()
             delete this;
             return;
         }
+
+        // If the colliding item is the giant, remove and delete the missile and decrement the giant's health
         else if(dynamic_cast<Giant*>(h))
         {
             if(x() > 400 && x() < 930)

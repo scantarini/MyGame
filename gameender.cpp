@@ -1,5 +1,6 @@
 #include "gameender.h"
 
+// Displays the exit button
 GameEnder::GameEnder()
 {
     setPixmap(QPixmap(":/Models/exit.png"));
@@ -7,11 +8,13 @@ GameEnder::GameEnder()
     this->hide();
 }
 
+// Emits that the exit button has been pressed
 void GameEnder::mousePressEvent(QGraphicsSceneMouseEvent *click)
 {
     emit clicked();
 }
 
+// Sets the exit button to the focused item (so that it can respond to a click)
 void GameEnder::display()
 {
     this->setFlag(QGraphicsItem::ItemIsFocusable);

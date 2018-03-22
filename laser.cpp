@@ -3,9 +3,15 @@
 #include <QString>
 #include <QGraphicsScene>
 
-
+// Constructor
 Laser::Laser(int x_pos, int y_pos, int x_speed, int y_speed)
 {
+    /***************************************************
+    * Sets the ZValue to 4
+    * Sets the starting image
+    * Sets the initial position and speed
+    * Connects the movement to a timer
+    ***************************************************/
     setZValue(4);
     setPixmap(QPixmap(":/Laser/Animation/Laser/00.gif"));
     setPos(x_pos, y_pos);
@@ -18,9 +24,12 @@ Laser::Laser(int x_pos, int y_pos, int x_speed, int y_speed)
     movementTimer->start(15);
 }
 
+// Moves the laser based on its position and speed
 void Laser::Move()
 {
     setPos(x() + horizSpeed, y() + vertSpeed);
+
+    // Deletes the laser when it leaves the screen boundary
     if(y() > 800)
     {
         scene()->removeItem(this);
