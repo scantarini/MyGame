@@ -113,17 +113,3 @@ in anywhere but main (where the scene object is declared) crashes
 the program. I believe this is because QGraphicsTextItem has
 specified that copying is disabled. To fix this, I passed
 pointers to the QGraphicsTextItems into a health manager class.
-Documentation will be added soon.
-
-Plans:
-1. Add health displays for player and enemy classes.
-using smart pointers. (done)
-2. I plan on learning how to add live messages to views.
-(done)
-to output some information about the current state of the game.
-(done)
-3. I plan on learning to switch the view between different scene objects.
-to create a loading/pause screen. (only an exit button - done)
-4. Learning about the QMovie library.
-5. Changing my code to implement generic algorithms
-6. Add documentation
