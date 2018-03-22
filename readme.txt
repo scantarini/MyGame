@@ -2,10 +2,8 @@ NOTE: There is music. Be careful for the volume.
 
 Documentation will be added soon.
 
-I made a demo without a microphone.
-I plan on making another one with a microphone.
-Here is the link:
-https://www.youtube.com/watch?v=fkqktoYnFCo
+Link to my game Demo:
+https://www.youtube.com/watch?v=RpE7gwgjd20
 
 Controls:
 While in the flying saucer:
