@@ -29,7 +29,6 @@ SOURCES += \
     flyingsaucer.cpp \
     beam.cpp \
     human.cpp \
-    spawner.cpp \
     seeker.cpp \
     et.cpp \
     giant.cpp \
@@ -42,7 +41,6 @@ HEADERS += \
     flyingsaucer.h \
     beam.h \
     human.h \
-    spawner.h \
     seeker.h \
     et.h \
     giant.h \
